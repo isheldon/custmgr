@@ -10,15 +10,59 @@
     <result column="manager_name" property="managerName" jdbcType="VARCHAR" />
     <result column="role" property="role" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <sql id="column_list" >
+    u.id, u.user_name, u.real_name, u.password,
+    u.manager_id, m.real_name as manager_name, u.role
+  </sql>
+
+  <sql id="join_from" >
+    user u left outer join user m on u.manager_id = m.id
+  </sql>
 
   <select id="getUserById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select u.id, u.user_name, u.real_name, u.password,
-    u.manager_id, m.real_name as manager_name, u.role
-    from user u left outer join user m on u.manager_id = m.id
+    select
+    <include refid="column_list" />
+    from 
+    <include refid="join_from" />
     where u.id = #{id}
   </select>
+
+  <delete id="deleteUserById" parameterType="java.lang.Integer" >
+    delete from user where id = #{id}
+  </delete>
 
   <select id="getUserByLogin" resultMap="BaseResultMap" >
     select * from user where user_name = #{param1} and password = #{param2}
   </select>
+
+  <select id="getUsersByRole" resultMap="BaseResultMap" >
+    select
+    <include refid="column_list" />
+    from 
+    <include refid="join_from" />
+    where u.role = #{role}
+  </select>
+
+  <insert id="insertUser" parameterType="cn.lomotime.custmgr.domain.User" >
+    insert into user (user_name, real_name, password, role
+    <if test="managerId != null" >
+      , manager_id
+    </if>
+    )
+    values (#{userName}, #{realName}, #{password}, #{role}
+    <if test="managerId != null" >
+      , #{managerId}
+    </if>
+    )
+  </insert>
+
+  <update id="updateRoleToSales" parameterType="java.lang.Integer" >
+    update user set role = 'SALES' where id = #{userId}
+  </update>
+
+  <update id="clearManagerId" parameterType="java.lang.Integer" >
+    update user set manager_id = null where manager_id = #{managerId};
+  </update>
+
 </mapper>
