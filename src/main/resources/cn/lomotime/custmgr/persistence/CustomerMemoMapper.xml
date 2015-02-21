@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.lomotime.custmgr.persistence.CustomerMemoDao">
+  <resultMap id="BaseResultMap" type="cn.lomotime.custmgr.domain.CustomerMemo">
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="customer_id" property="customerId" jdbcType="INTEGER" />
+    <result column="memo_time" property="memoTime" jdbcType="DATETIME" />
+    <result column="memo" property="memo" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="getLastMemo" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select * from customer_memo
+    where customer_id = #{customerId}
+    order by memo_time desc
+    limit 1
+  </select>
+</mapper>

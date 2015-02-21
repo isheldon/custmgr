@@ -11,9 +11,30 @@
     <result column="qq" property="qq" jdbcType="VARCHAR" />
     <result column="contacted" property="contacted" jdbcType="INTEGER" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
-    <!-- extra fields from other table -->
+    <!-- extra field from other table -->
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
-    <result column="last_memo" property="lastMemo" jdbcType="VARCHAR" />
-    <result column="last_memo_time" property="lastMemoTime" jdbcType="DATETIME" />
   </resultMap>
+  
+  <select id="getCustomersByExample" resultMap="BaseResultMap"
+          parameterType="cn.lomotime.custmgr.domain.Customer" >
+    select c.*, u.real_name as user_name
+    from customer c
+    left outer join user u on c.user_id = u.id
+    where 1 = 1;
+    <if test="orgName != null">
+      and c.org_name like #{orgName}
+    </if>
+    <if test="contactName != null">
+      and c.contact_name like #{contactName}
+    </if>
+    <if test="contactPhone != null">
+      and c.contact_phone like #{contactPhone}
+    </if>
+    <if test="contacted != null">
+      and c.contacted = #{contacted}
+    </if>
+    <if test="contacted != null">
+      and u.user_name like #{userName}
+    </if>
+  </select>
 </mapper>
