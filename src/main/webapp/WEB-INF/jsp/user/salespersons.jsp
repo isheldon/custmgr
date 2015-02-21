@@ -7,8 +7,8 @@
 <title>用户管理</title>
 </head>
 
-<a href="salesperson/new">添加用户</a>
 <body>
+  <a href="salesperson/new">添加用户</a>
   <table>
     <thead>
       <tr><td>登录帐号</td><td>用户姓名</td><td>所属主管</td><td>操作</td></tr>

@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 public class CustomerMemo {
 
   private Integer id;
+  private Integer customerId;
+
   private Timestamp memoTime;
   private String memo;
 
@@ -13,6 +15,12 @@ public class CustomerMemo {
   }
   public void setId(Integer id) {
     this.id = id;
+  }
+  public Integer getCustomerId() {
+    return customerId;
+  }
+  public void setCustomerId(Integer customerId) {
+    this.customerId = customerId;
   }
   public Timestamp getMemoTime() {
     return memoTime;

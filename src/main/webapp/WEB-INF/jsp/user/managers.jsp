@@ -7,8 +7,8 @@
 <title>主管管理</title>
 </head>
 
-<a href="manager/new">添加主管</a>
 <body>
+  <a href="manager/new">添加主管</a>
   <table>
     <thead>
       <tr><td>登录帐号</td><td>用户姓名</td><td>操作</td></tr>

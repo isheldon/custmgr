@@ -20,21 +20,21 @@
     select c.*, u.real_name as user_name
     from customer c
     left outer join user u on c.user_id = u.id
-    where 1 = 1;
+    where 1 = 1
     <if test="orgName != null">
-      and c.org_name like #{orgName}
+      and c.org_name like '%${orgName}%'
     </if>
     <if test="contactName != null">
-      and c.contact_name like #{contactName}
+      and c.contact_name like '%${contactName}%'
     </if>
     <if test="contactPhone != null">
-      and c.contact_phone like #{contactPhone}
+      and c.contact_phone like '%${contactPhone}%'
     </if>
     <if test="contacted != null">
       and c.contacted = #{contacted}
     </if>
-    <if test="contacted != null">
-      and u.user_name like #{userName}
+    <if test="userName != null">
+      and u.user_name like '%${userName}%'
     </if>
   </select>
 </mapper>
