@@ -27,7 +27,7 @@ public class LoginCtrl {
       return "login";
     }
     model.addAttribute("loginUser", user);
-    return "redirect:/user/managers";
+    return "redirect:/index";
   }
 
   @RequestMapping("/logout")

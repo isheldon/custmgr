@@ -65,4 +65,26 @@
     update user set manager_id = null where manager_id = #{managerId};
   </update>
 
+  <update id="updateUserSelective" parameterType="cn.lomotime.custmgr.domain.User" >
+    update user
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName},
+      </if>
+      <if test="realName != null" >
+        real_name = #{realName},
+      </if>
+      <if test="password != null" >
+        password = #{password},
+      </if>
+      <if test="managerId != null" >
+        manager_id = #{managerId},
+      </if>
+      <if test="role != null" >
+        password = #{role},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+
 </mapper>

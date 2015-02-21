@@ -19,4 +19,6 @@ public interface UserDao {
   public void updateRoleToSales(Integer userId);
   
   public void clearManagerId(Integer managerId);
+  
+  public void updateUserSelective(User userTempl);
 }

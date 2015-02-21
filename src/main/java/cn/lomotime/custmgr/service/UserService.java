@@ -21,6 +21,10 @@ public class UserService {
     return userDao.getUserByLogin(userName, password);
   }
   
+  public User getUserById(Integer id) {
+    return userDao.getUserById(id);
+  }
+  
   @Transactional
   public void deleteSalesperson(Integer id) {
     userDao.deleteUserById(id);
@@ -47,6 +51,11 @@ public class UserService {
     User salesperson = newUser(userName, realName, Const.ROLE_SALES);
     salesperson.setManagerId(managerId);
     userDao.insertUser(salesperson);
+  }
+  
+  @Transactional
+  public void updateUserSelective(User userTempl) {
+    userDao.updateUserSelective(userTempl);
   }
 
   public List<User> getSalespersons() {
