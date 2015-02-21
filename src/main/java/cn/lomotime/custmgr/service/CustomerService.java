@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import cn.lomotime.custmgr.domain.Customer;
 import cn.lomotime.custmgr.domain.CustomerMemo;
@@ -32,6 +33,11 @@ public class CustomerService {
       }
     }
     return customers;
+  }
+  
+  @Transactional
+  public void createCustomer(Customer customer) {
+    customerDao.insertCustomer(customer);
   }
 
 }

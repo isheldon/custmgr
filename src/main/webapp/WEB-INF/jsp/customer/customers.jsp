@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <%@ page language="java" pageEncoding="utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <html>
 <head>
@@ -9,7 +9,7 @@
 </head>
 
 <body>
-  <a href="manager/new">添加客户</a>
+  <a href="new">添加客户</a>
 
   <form:form id="customerForm" commandName="customer" action="customers" method="POST">
       单位名称: <form:input path="orgName"/> &nbsp;

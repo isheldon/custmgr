@@ -37,4 +37,41 @@
       and u.user_name like '%${userName}%'
     </if>
   </select>
+  
+  <insert id="insertCustomer" parameterType="cn.lomotime.custmgr.domain.Customer" >
+    insert into customer (org_name
+    <if test="orgAddress != null" >
+      , org_address
+    </if>
+    <if test="contactName != null" >
+      , contact_name
+    </if>
+    <if test="contactPhone != null" >
+      , contact_phone
+    </if>
+    <if test="email != null" >
+      , email
+    </if>
+    <if test="qq != null" >
+      , qq
+    </if>
+    )
+    values (#{orgName}
+    <if test="orgAddress != null" >
+      , #{orgAddress}
+    </if>
+    <if test="contactName != null" >
+      , #{contactName}
+    </if>
+    <if test="contactPhone != null" >
+      , #{contactPhone}
+    </if>
+    <if test="email != null" >
+      , #{email}
+    </if>
+    <if test="qq != null" >
+      , #{qq}
+    </if>
+    )
+  </insert>
 </mapper>

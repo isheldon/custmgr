@@ -8,4 +8,5 @@ public interface CustomerDao {
 
   List<Customer> getCustomersByExample(Customer example);
 
+  public void insertCustomer(Customer customer);
 }

@@ -22,4 +22,16 @@ public class CustomerCtrl {
     model.addAttribute("customers", customerService.getCustomersByExample(exapmle));
     return "customer/customers";
   }
+
+  @RequestMapping("/new")
+  public String newManager(Model model) {
+    model.addAttribute("customer", new Customer());
+    return "customer/customer-new";
+  }
+
+  @RequestMapping("/create")
+  public String createManager(@ModelAttribute("customer") Customer customer) {
+    customerService.createCustomer(customer);
+    return "redirect:/customer/customers";
+  }
 }
