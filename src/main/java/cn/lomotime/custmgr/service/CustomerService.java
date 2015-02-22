@@ -1,6 +1,6 @@
 package cn.lomotime.custmgr.service;
 
-import java.util.List;
+import java.util.*;
 
 import javax.annotation.Resource;
 
@@ -50,4 +50,12 @@ public class CustomerService {
     customerDao.insertCustomer(customer);
   }
 
+  @Transactional
+  public void allocateCusomersSales(Integer userId, String[] customerIds) {
+    Map<String, Object> params = new HashMap<String, Object>();
+    params.put("userId", userId);
+    params.put("customerIds", customerIds);
+    customerDao.updateCustomersSales(params);
+  }
+  
 }

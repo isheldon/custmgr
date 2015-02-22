@@ -89,7 +89,7 @@
     )
   </insert>
   
-  <update id="updateCustomerSales" parameterType="java.util.Map" >
+  <update id="updateCustomersSales" parameterType="java.util.Map" >
     update customer set user_id = #{userId}
     where id in
     <foreach item="id" index="index" collection="customerIds" 

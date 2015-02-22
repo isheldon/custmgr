@@ -17,6 +17,14 @@
   </form>
 
   <form name="allocationForm" action="allocate" method="POST">
+    <select name="userId">
+      <option value="">请选择销售人员</option>
+      <c:forEach items="${users}" var="user">
+      <option value="${user['id']}">${user['realName']}</option>
+      </c:forEach>
+    </select>
+    <input type="submit" value="分配" />
+    <br/> 
     <table>
       <thead>
         <tr>
@@ -31,7 +39,7 @@
         <c:forEach items="${customers}" var="customer">
         <tr>
           <td>
-            <input type="checkbox" name="customerId"/>
+            <input type="checkbox" name="customerId" value="${customer['id']}"/>
           </td>
           <td>${customer['orgName']}</td>
           <td>${customer['contactName']}</td>

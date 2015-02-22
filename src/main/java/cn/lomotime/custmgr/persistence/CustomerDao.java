@@ -14,5 +14,5 @@ public interface CustomerDao {
   List<Customer> getCustomersWithUserId();
   List<Customer> getCustomersWithoutUserId();
   
-  public void updateCustomerSales(Map<String, Object> params);
+  public void updateCustomersSales(Map<String, Object> params);
 }
