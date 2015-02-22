@@ -38,7 +38,7 @@ public class CustomerCtrl {
   @RequestMapping("/selfcustomers")
   public String getSelfCustomers(HttpSession session, Model model, @ModelAttribute("customer") Customer example) {
     if (example == null) { example = new Customer(); }
-    User currentUser = (User) session.getAttribute("loginUser");
+    User currentUser = this.getCurrentUser(session);
     example.setUserId(currentUser.getId());
     model.addAttribute("customers", customerService.getCustomersByExample(example));
     model.addAttribute("formAction", "selfcustomers");
@@ -48,7 +48,7 @@ public class CustomerCtrl {
   @RequestMapping("/subcustomers")
   public String getSubCustomers(HttpSession session, Model model, @ModelAttribute("customer") Customer example) {
     if (example == null) { example = new Customer(); }
-    User currentUser = (User) session.getAttribute("loginUser");
+    User currentUser = this.getCurrentUser(session);
     example.setManagerId(currentUser.getId());
     model.addAttribute("customers", customerService.getCustomersByExampleWithManager(example));
     model.addAttribute("formAction", "subcustomers");
@@ -56,15 +56,22 @@ public class CustomerCtrl {
   }
 
   @RequestMapping("/new")
-  public String newManager(Model model) {
-    model.addAttribute("customer", new Customer());
+  public String newManager(HttpSession session, Model model) {
+    Customer customer = new Customer();
+    User currentUser = this.getCurrentUser(session);
+    if (!"ADMIN".equals(currentUser.getRole())) {
+      customer.setUserId(currentUser.getId());
+    }
+    model.addAttribute("customer", customer);
     return "customer/customer-new";
   }
 
   @RequestMapping("/create")
   public String createManager(@ModelAttribute("customer") Customer customer) {
     customerService.createCustomer(customer);
-    return "redirect:/customer/customers";
+    String returnPath = "redirect:/customer/customers";
+    if (customer.getUserId() != null) { returnPath = "redirect:/customer/selfcustomers"; }
+    return returnPath;
   }
 
   @RequestMapping("/toAllocate")
@@ -83,5 +90,9 @@ public class CustomerCtrl {
     String[] customerIds = request.getParameterValues("customerId");
     customerService.allocateCusomersSales(userId, customerIds);
     return "redirect:/customer/toAllocate";
+  }
+  
+  private User getCurrentUser(HttpSession session) {
+    return (User) session.getAttribute("loginUser");
   }
 }

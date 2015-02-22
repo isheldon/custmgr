@@ -10,6 +10,7 @@
 <body>
   
   <form:form id="customerForm" commandName="customer" action="create" method="POST">
+    <form:hidden path="userId" />
       单位名称: <form:input path="orgName"/> <br/>
       单位地址: <form:input path="orgAddress"/> <br/>
       联系人姓名: <form:input path="contactName"/> <br/>

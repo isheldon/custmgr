@@ -95,6 +95,9 @@
     <if test="qq != null" >
       , qq
     </if>
+    <if test="userId != null" >
+      , user_id
+    </if>
     )
     values (#{orgName}
     <if test="orgAddress != null" >
@@ -111,6 +114,9 @@
     </if>
     <if test="qq != null" >
       , #{qq}
+    </if>
+    <if test="userId != null" >
+      , #{userId}
     </if>
     )
   </insert>
