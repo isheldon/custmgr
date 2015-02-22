@@ -18,6 +18,9 @@ public class Customer {
   private String lastMemo;
   private Timestamp lastMemoTime;
   
+  //Just for search
+  private Integer managerId;
+  
   public void prepareForSearch() {
     if (orgName != null && orgName.length() == 0) { orgName = null; }
     if (contactName != null && contactName.length() == 0) { contactName = null; }
@@ -96,6 +99,13 @@ public class Customer {
   }
   public void setLastMemoTime(Timestamp lastMemoTime) {
     this.lastMemoTime = lastMemoTime;
+  }
+
+  public Integer getManagerId() {
+    return managerId;
+  }
+  public void setManagerId(Integer managerId) {
+    this.managerId = managerId;
   }
   
 }

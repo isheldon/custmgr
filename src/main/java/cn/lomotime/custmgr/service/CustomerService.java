@@ -25,6 +25,21 @@ public class CustomerService {
     if (example == null) { example = new Customer(); }
     example.prepareForSearch();
     List<Customer> customers = customerDao.getCustomersByExample(example);
+    this.appendMemos(customers);
+    return customers;
+  }
+
+  public List<Customer> getCustomersByExampleWithManager(Customer example) {
+    if (example.getManagerId() == null) {
+      throw new RuntimeException("Manager ID not found.");
+    }
+    example.prepareForSearch();
+    List<Customer> customers = customerDao.getCustomersByExampleWithManager(example);
+    this.appendMemos(customers);
+    return customers;
+  }
+  
+  private void appendMemos(List<Customer> customers) {
     for (Customer customer: customers) {
       CustomerMemo memo = memoDao.getLastMemo(customer.getId());
       if (memo != null) {
@@ -32,7 +47,6 @@ public class CustomerService {
         customer.setLastMemoTime(memo.getMemoTime());
       }
     }
-    return customers;
   }
 
   public List<Customer> getCustomersByAllocation(String allocation) {

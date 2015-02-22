@@ -38,7 +38,33 @@
       and c.contacted = #{contacted}
     </if>
     <if test="userName != null">
-      and u.user_name like '%${userName}%'
+      and u.real_name like '%${userName}%'
+    </if>
+    <if test="userId != null">
+      and c.user_id = #{userId}
+    </if>
+  </select>
+
+  <select id="getCustomersByExampleWithManager" resultMap="BaseResultMap" parameterType="cn.lomotime.custmgr.domain.Customer">
+    select c.*, u.real_name as user_name
+    from customer c, user u, user m
+    where c.user_id = u.id
+    and u.manager_id = m.id
+    and m.id = #{managerId}
+    <if test="orgName != null">
+      and c.org_name like '%${orgName}%'
+    </if>
+    <if test="contactName != null">
+      and c.contact_name like '%${contactName}%'
+    </if>
+    <if test="contactPhone != null">
+      and c.contact_phone like '%${contactPhone}%'
+    </if>
+    <if test="contacted != null">
+      and c.contacted = #{contacted}
+    </if>
+    <if test="userName != null">
+      and u.real_name like '%${userName}%'
     </if>
   </select>
   

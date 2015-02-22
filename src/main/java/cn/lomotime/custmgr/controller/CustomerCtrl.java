@@ -4,7 +4,9 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+//import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,6 +20,7 @@ import cn.lomotime.custmgr.service.UserService;
 @Controller
 @RequestMapping("/customer")
 public class CustomerCtrl {
+  //private static Logger logger = Logger.getLogger(CustomerCtrl.class);
 
   @Resource
   private CustomerService customerService;
@@ -26,8 +29,30 @@ public class CustomerCtrl {
   private UserService userSerivce;
   
   @RequestMapping("/customers")
-  public String getCustomers(Model model, @ModelAttribute("customer") Customer exapmle) {
-    model.addAttribute("customers", customerService.getCustomersByExample(exapmle));
+  public String getCustomers(Model model, @ModelAttribute("customer") Customer example) {
+    model.addAttribute("customers", customerService.getCustomersByExample(example));
+    model.addAttribute("formAction", "customers");
+    return "customer/customers";
+  }
+
+  @RequestMapping("/selfcustomers")
+  public String getSelfCustomers(HttpSession session, Model model, @ModelAttribute("customer") Customer example) {
+    if (example == null) { example = new Customer(); }
+    User currentUser = (User) session.getAttribute("loginUser");
+    Integer selfUserId = currentUser.getId();
+    example.setUserId(selfUserId);
+    model.addAttribute("customers", customerService.getCustomersByExample(example));
+    model.addAttribute("formAction", "selfcustomers");
+    return "customer/customers";
+  }
+
+  @RequestMapping("/subcustomers")
+  public String getSubCustomers(Model model, @ModelAttribute("customer") Customer example) {
+    if (example == null) { example = new Customer(); }
+    Integer selfUserId = ((User) model.asMap().get("loginUser")).getId();
+    example.setManagerId(selfUserId);
+    model.addAttribute("customers", customerService.getCustomersByExampleWithManager(example));
+    model.addAttribute("formAction", "subcustomers");
     return "customer/customers";
   }
 

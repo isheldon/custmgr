@@ -11,7 +11,7 @@
 <body>
   <a href="new">添加客户</a>
 
-  <form:form id="customerForm" commandName="customer" action="customers" method="POST">
+  <form:form id="customerForm" commandName="customer" action="${formAction}" method="POST">
       单位名称: <form:input path="orgName"/> &nbsp;
       联系人: <form:input path="contactName"/> &nbsp;
       电话: <form:input path="contactPhone"/> &nbsp;

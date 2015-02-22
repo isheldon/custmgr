@@ -9,6 +9,8 @@ public interface CustomerDao {
 
   List<Customer> getCustomersByExample(Customer example);
 
+  List<Customer> getCustomersByExampleWithManager(Customer example);
+ 
   public void insertCustomer(Customer customer);
   
   List<Customer> getCustomersWithUserId();
