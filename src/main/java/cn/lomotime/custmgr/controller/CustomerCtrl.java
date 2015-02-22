@@ -39,18 +39,17 @@ public class CustomerCtrl {
   public String getSelfCustomers(HttpSession session, Model model, @ModelAttribute("customer") Customer example) {
     if (example == null) { example = new Customer(); }
     User currentUser = (User) session.getAttribute("loginUser");
-    Integer selfUserId = currentUser.getId();
-    example.setUserId(selfUserId);
+    example.setUserId(currentUser.getId());
     model.addAttribute("customers", customerService.getCustomersByExample(example));
     model.addAttribute("formAction", "selfcustomers");
     return "customer/customers";
   }
 
   @RequestMapping("/subcustomers")
-  public String getSubCustomers(Model model, @ModelAttribute("customer") Customer example) {
+  public String getSubCustomers(HttpSession session, Model model, @ModelAttribute("customer") Customer example) {
     if (example == null) { example = new Customer(); }
-    Integer selfUserId = ((User) model.asMap().get("loginUser")).getId();
-    example.setManagerId(selfUserId);
+    User currentUser = (User) session.getAttribute("loginUser");
+    example.setManagerId(currentUser.getId());
     model.addAttribute("customers", customerService.getCustomersByExampleWithManager(example));
     model.addAttribute("formAction", "subcustomers");
     return "customer/customers";
