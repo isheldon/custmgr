@@ -6,10 +6,14 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+
+
+
 //import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.lomotime.custmgr.domain.Customer;
@@ -92,6 +96,19 @@ public class CustomerCtrl {
     return "redirect:/customer/toAllocate";
   }
   
+  @RequestMapping("/newMemo/{customerId}")
+  public String newMemo(@PathVariable(value="customerId") Integer customerId, Model model) {
+    model.addAttribute("customer", customerService.getCustomersById(customerId));
+    model.addAttribute("memos", customerService.getCustomerMemos(customerId));
+    return "customer/memo-new";
+  }
+  
+  @RequestMapping("/createMemo")
+  public String createMemo(Integer customerId, String memo, Integer contacted) {
+    customerService.createCustomerMemo(customerId, memo, contacted);
+    return "redirect:/customer/selfcustomers";
+  }
+
   private User getCurrentUser(HttpSession session) {
     return (User) session.getAttribute("loginUser");
   }

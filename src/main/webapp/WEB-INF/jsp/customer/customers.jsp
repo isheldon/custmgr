@@ -53,7 +53,14 @@
         </td>
         <td>${customer['lastMemo']}</td>
         <td>${customer['lastMemoTime']}</td>
-        <td><a href="customer/memohistory/${customer['id']}">历史备注</a></td>
+        <td>
+          <c:if test="${formAction != 'selfcustomers'}">
+          <a href="memohistory/${customer['id']}">历史备注</a>
+          </c:if>
+          <c:if test="${formAction == 'selfcustomers'}">
+          <a href="newMemo/${customer['id']}">添加备注</a>
+          </c:if>
+        </td>
       </tr>
       </c:forEach>
     </tbody> 

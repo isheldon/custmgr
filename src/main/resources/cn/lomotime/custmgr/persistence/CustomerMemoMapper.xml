@@ -14,4 +14,14 @@
     order by memo_time desc
     limit 1
   </select>
+
+  <select id="getMemos" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select * from customer_memo
+    where customer_id = #{customerId}
+    order by memo_time desc
+  </select>
+  
+  <insert id="insertCustomerMemo" parameterType="cn.lomotime.custmgr.domain.CustomerMemo" >
+    insert into customer_memo (customer_id, memo) values (#{customerId}, #{memo})
+  </insert>
 </mapper>

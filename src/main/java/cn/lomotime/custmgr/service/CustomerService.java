@@ -19,7 +19,14 @@ public class CustomerService {
   private CustomerDao customerDao;
 
   @Resource
+  private CustomerMemoDao customerMemoDao;
+
+  @Resource
   private CustomerMemoDao memoDao;
+  
+  public Customer getCustomersById(Integer id) {
+    return customerDao.getCustomersById(id);
+  }
   
   public List<Customer> getCustomersByExample(Customer example) {
     if (example == null) { example = new Customer(); }
@@ -70,6 +77,19 @@ public class CustomerService {
     params.put("userId", userId);
     params.put("customerIds", customerIds);
     customerDao.updateCustomersSales(params);
+  }
+  
+  @Transactional
+  public void createCustomerMemo(Integer customerId, String memo, Integer contacted) {
+    CustomerMemo cm = new CustomerMemo();
+    cm.setCustomerId(customerId);
+    cm.setMemo(memo);
+    customerMemoDao.insertCustomerMemo(cm);
+    customerDao.updateCustomersContacted(customerId, contacted);
+  }
+  
+  public List<CustomerMemo> getCustomerMemos(Integer customerId) {
+    return customerMemoDao.getMemos(customerId);
   }
   
 }

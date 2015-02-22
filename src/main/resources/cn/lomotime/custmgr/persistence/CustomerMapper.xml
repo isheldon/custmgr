@@ -21,6 +21,10 @@
     left outer join user u on c.user_id = u.id
     where 1 = 1
   </sql>
+
+  <select id="getCustomersById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select * from customer where id = #{id}
+  </select>
   
   <select id="getCustomersByExample" resultMap="BaseResultMap"
           parameterType="cn.lomotime.custmgr.domain.Customer" >
@@ -128,6 +132,10 @@
              open="(" separator="," close=")">
       #{id}
     </foreach>
+  </update>
+
+  <update id="updateCustomersContacted">
+    update customer set contacted = #{param2} where id = #{param1}
   </update>
 
 </mapper>
