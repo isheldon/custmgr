@@ -15,12 +15,16 @@
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
   </resultMap>
   
-  <select id="getCustomersByExample" resultMap="BaseResultMap"
-          parameterType="cn.lomotime.custmgr.domain.Customer" >
+  <sql id="base_select" >
     select c.*, u.real_name as user_name
     from customer c
     left outer join user u on c.user_id = u.id
     where 1 = 1
+  </sql>
+  
+  <select id="getCustomersByExample" resultMap="BaseResultMap"
+          parameterType="cn.lomotime.custmgr.domain.Customer" >
+    <include refid="base_select" />
     <if test="orgName != null">
       and c.org_name like '%${orgName}%'
     </if>
@@ -36,6 +40,16 @@
     <if test="userName != null">
       and u.user_name like '%${userName}%'
     </if>
+  </select>
+  
+  <select id="getCustomersWithUserId" resultMap="BaseResultMap">
+    <include refid="base_select" />
+    and c.user_id is not null
+  </select>
+
+  <select id="getCustomersWithoutUserId" resultMap="BaseResultMap">
+    <include refid="base_select" />
+    and c.user_id is null
   </select>
   
   <insert id="insertCustomer" parameterType="cn.lomotime.custmgr.domain.Customer" >
@@ -74,4 +88,14 @@
     </if>
     )
   </insert>
+  
+  <update id="updateCustomerSales" parameterType="java.util.Map" >
+    update customer set user_id = #{userId}
+    where id in
+    <foreach item="id" index="index" collection="customerIds" 
+             open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </update>
+
 </mapper>

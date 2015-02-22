@@ -34,6 +34,16 @@ public class CustomerService {
     }
     return customers;
   }
+
+  public List<Customer> getCustomersByAllocation(String allocation) {
+    if ("YES".equals(allocation)) {
+      return customerDao.getCustomersWithUserId();
+    } else if ("NO".equals(allocation)) {
+      return customerDao.getCustomersWithoutUserId();
+    } else {
+      return this.getCustomersByExample(new Customer());
+    }
+  }
   
   @Transactional
   public void createCustomer(Customer customer) {

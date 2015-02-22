@@ -34,4 +34,11 @@ public class CustomerCtrl {
     customerService.createCustomer(customer);
     return "redirect:/customer/customers";
   }
+
+  @RequestMapping("/toAllocate")
+  public String toAllocate(Model model, String allocation) {
+    model.addAttribute("customers", customerService.getCustomersByAllocation(allocation));
+    model.addAttribute("allocation", allocation);
+    return "customer/customer-allocate";
+  }
 }
