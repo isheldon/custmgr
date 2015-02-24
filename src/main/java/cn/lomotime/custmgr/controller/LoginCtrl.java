@@ -1,6 +1,7 @@
 package cn.lomotime.custmgr.controller;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,11 @@ public class LoginCtrl {
 
   @Resource
   private UserService userService;
+
+  @RequestMapping("/login")
+  public String login() {
+    return "login";
+  }
 
   @RequestMapping(value = "/doLogin", method = RequestMethod.POST)
   public String doLogin(Model model, String userName, String password) {
@@ -37,6 +43,19 @@ public class LoginCtrl {
     return "login";
   }
 
+  @RequestMapping("/password")
+  public String password() {
+    return "password";
+  }
+
+  @RequestMapping(value = "/chgpwd", method = RequestMethod.POST)
+  public String changePassword(HttpSession session, Model model, String password) {
+    User user = (User) session.getAttribute("loginUser");
+    userService.changeUserPassword(user.getId(), password);
+    model.addAttribute("pwdMsg", 1);
+    return "password";
+  }
+
   @RequestMapping("/index")
   public String index() {
     return "index";
@@ -45,10 +64,6 @@ public class LoginCtrl {
   @RequestMapping(value = "/", method = RequestMethod.GET)
   public String home() {
     return "index";
-}
-
-  @RequestMapping("/login")
-  public String login() {
-    return "login";
   }
+
 }

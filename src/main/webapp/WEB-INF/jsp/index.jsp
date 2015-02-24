@@ -5,6 +5,8 @@
   ${loginUser.userName} <br>
   ${loginUser.realName} <br>
   ${loginUser.role} <br>
+
+  <a href="<%= request.getContextPath()%>/password">修改密码</a>
   
   <c:if test="${loginUser.role == 'ADMIN'}">  
   <a href="user/managers">主管管理</a>

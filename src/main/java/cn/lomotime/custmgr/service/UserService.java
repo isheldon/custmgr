@@ -58,6 +58,14 @@ public class UserService {
     userDao.updateUserSelective(userTempl);
   }
 
+  @Transactional
+  public void changeUserPassword(Integer userId, String password) {
+    User userTempl = new User();
+    userTempl.setId(userId);
+    userTempl.setPassword(password);
+    userDao.updateUserSelective(userTempl);
+  }
+
   public List<User> getSalespersons() {
     return userDao.getUsersByRole(Const.ROLE_SALES);
   }
