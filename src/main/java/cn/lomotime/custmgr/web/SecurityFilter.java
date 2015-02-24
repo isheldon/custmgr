@@ -29,7 +29,15 @@ public class SecurityFilter implements Filter {
     HttpServletResponse response  =(HttpServletResponse) resp;    
     
     String path = request.getRequestURI();
-    if (path.contains("login") || path.contains("logout") || path.contains("doLogin")) {
+    if (path.contains("login") ||
+        path.contains("logout") ||
+        path.contains("doLogin") ||
+        path.contains(".css") ||
+        path.contains(".js") ||
+        path.contains(".jpg") ||
+        path.contains(".gif") ||
+        path.contains(".png")
+        ) {
       // do nothing
     } else {
       HttpSession session = request.getSession(true);     
