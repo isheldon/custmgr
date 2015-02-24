@@ -57,7 +57,7 @@ public class CustomerCtrl {
   }
 
   @RequestMapping("/new")
-  public String newManager(HttpSession session, Model model) {
+  public String newCustomer(HttpSession session, Model model) {
     Customer customer = new Customer();
     User currentUser = this.getCurrentUser(session);
     if (!"ADMIN".equals(currentUser.getRole())) {
@@ -68,7 +68,7 @@ public class CustomerCtrl {
   }
 
   @RequestMapping("/create")
-  public String createManager(@ModelAttribute("customer") Customer customer) {
+  public String createCustomer(@ModelAttribute("customer") Customer customer) {
     customerService.createCustomer(customer);
     String returnPath = "redirect:/customer/customers";
     if (customer.getUserId() != null) { returnPath = "redirect:/customer/selfcustomers"; }

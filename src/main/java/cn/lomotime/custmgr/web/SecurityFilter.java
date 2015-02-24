@@ -12,12 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-//import org.apache.log4j.Logger;
+import org.apache.log4j.Logger;
 
 import cn.lomotime.custmgr.domain.User;
 
 public class SecurityFilter implements Filter {
-  //private static Logger logger = Logger.getLogger(SecurityFilter.class);
+  private static Logger logger = Logger.getLogger(SecurityFilter.class);
 
   @Override
   public void destroy() { }
@@ -37,6 +37,8 @@ public class SecurityFilter implements Filter {
       if (user == null) {
         String ctx = request.getContextPath();
         response.sendRedirect(ctx + "/login");
+      } else {
+        checkRole(user.getRole(), path);
       }
     }
 
@@ -45,5 +47,24 @@ public class SecurityFilter implements Filter {
 
   @Override
   public void init(FilterConfig arg0) throws ServletException { }
+
+  private void checkRole(String role, String path) {
+    logger.debug("role: " + role + ", path: " + path);
+    if ("MANAGER".equals(role) &&
+        !path.contains("/index") &&
+        !path.contains("/selfcustomers") &&
+        !path.contains("/subcustomers") &&
+        !path.contains("/customer/new") &&
+        !path.contains("/customer/create") ) {
+      throw new RuntimeException("NO_PERMISSION");
+    }
+    if ("SALES".equals(role) &&
+        !path.contains("/index") &&
+        !path.contains("/selfcustomers") &&
+        !path.contains("/customer/new") &&
+        !path.contains("/customer/create") ) {
+      throw new RuntimeException("NO_PERMISSION");
+    }
+  }
 
 }
