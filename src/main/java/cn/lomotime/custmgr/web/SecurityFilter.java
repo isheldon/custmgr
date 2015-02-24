@@ -55,14 +55,21 @@ public class SecurityFilter implements Filter {
         !path.contains("/selfcustomers") &&
         !path.contains("/subcustomers") &&
         !path.contains("/customer/new") &&
-        !path.contains("/customer/create") ) {
+        !path.contains("/customer/create") &&
+        !path.contains("/memohistory") &&
+        !path.contains("/password") &&
+        !path.contains("/chgpwd")
+        ) {
       throw new RuntimeException("NO_PERMISSION");
     }
     if ("SALES".equals(role) &&
         !path.contains("/index") &&
         !path.contains("/selfcustomers") &&
         !path.contains("/customer/new") &&
-        !path.contains("/customer/create") ) {
+        !path.contains("/customer/create") &&
+        !path.contains("/password") &&
+        !path.contains("/chgpwd")
+        ) {
       throw new RuntimeException("NO_PERMISSION");
     }
   }

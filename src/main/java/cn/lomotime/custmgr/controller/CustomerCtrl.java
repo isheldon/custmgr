@@ -100,6 +100,18 @@ public class CustomerCtrl {
     return "customer/memo-new";
   }
   
+  @RequestMapping("/memohistory/{customerId}")
+  public String histroyMemos(HttpSession session,
+      @PathVariable(value="customerId") Integer customerId, Model model) {
+    model.addAttribute("memos", customerService.getCustomerMemos(customerId));
+    if ("ADMIN".equals(getCurrentUser(session).getRole())) {
+      model.addAttribute("backPath", "customers");
+    } else {
+      model.addAttribute("backPath", "subcustomers");
+    }
+    return "customer/memo-history";
+  }
+  
   @RequestMapping("/createMemo")
   public String createMemo(Integer customerId, String memo, Integer contacted) {
     customerService.createCustomerMemo(customerId, memo, contacted);
