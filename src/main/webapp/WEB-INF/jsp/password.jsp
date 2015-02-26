@@ -1,6 +1,7 @@
 <%@ page language="java" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="pub/header.jsp" %>
+<%@include file="pub/top-menu.jsp" %>
 
 <script type="text/javascript">
 jQuery(function(){
