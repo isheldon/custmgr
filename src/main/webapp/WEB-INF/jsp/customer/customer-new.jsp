@@ -1,10 +1,16 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <%@ page language="java" pageEncoding="utf-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%@include file="../pub/header.jsp" %>
 <%@include file="../pub/top-menu.jsp" %>
+
+<div class="row">
+  <div class="large-12 columns">
+    <h3>添加客户</h3>
+  </div>
+  <hr/>
+</div>
 
   <form:form id="customerForm" commandName="customer" action="create" method="POST">
     <form:hidden path="userId" />
