@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,7 +19,7 @@ public class UserService {
   private UserDao userDao;
   
   public User login(String userName, String password) {
-    return userDao.getUserByLogin(userName, password);
+    return userDao.getUserByLogin(userName, hash(password));
   }
   
   public User getUserById(Integer id) {
@@ -62,7 +63,7 @@ public class UserService {
   public void changeUserPassword(Integer userId, String password) {
     User userTempl = new User();
     userTempl.setId(userId);
-    userTempl.setPassword(password);
+    userTempl.setPassword(hash(password));
     userDao.updateUserSelective(userTempl);
   }
 
@@ -77,5 +78,10 @@ public class UserService {
     user.setPassword("123456");
     user.setRole(role);
     return user;
+  }
+  
+  private static final String SALT = "He1h3i";
+  private static String hash(String data) {
+    return DigestUtils.md5Hex(data + SALT);
   }
 }
