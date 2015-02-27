@@ -4,6 +4,13 @@
 <%@include file="../pub/top-menu.jsp" %>
 
 <div class="row">
+  <div class="large-12 columns">
+    <h3>历史备注</h3>
+  </div>
+  <hr/>
+</div>
+
+<div class="row">
   <table width="100%">
     <thead>
       <tr>
@@ -22,5 +29,6 @@
   </table>
   <a href="../${backPath}" class="button">返回</a>
 </div>
+
 
 <%@include file="../pub/footer.jsp" %>

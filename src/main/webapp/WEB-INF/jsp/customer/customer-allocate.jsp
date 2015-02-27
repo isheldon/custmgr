@@ -1,6 +1,5 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<%@ page language="java" pageEncoding="utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page language="java" pageEncoding="utf-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="../pub/header.jsp" %>
 <%@include file="../pub/top-menu.jsp" %>
 <script type="text/javascript">
@@ -13,6 +12,13 @@ jQuery(function(){
   });
 });
 </script>
+
+<div class="row">
+  <div class="large-12 columns">
+    <h3>客户分配</h3>
+  </div>
+  <hr/>
+</div>
 
   <form name="searchForm" action="toAllocate" method="POST">
     <div class="row">

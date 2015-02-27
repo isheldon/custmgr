@@ -4,6 +4,13 @@
 <%@include file="../pub/top-menu.jsp" %>
 
 <div class="row">
+  <div class="large-12 columns">
+    <h3>主管管理</h3>
+  </div>
+  <hr/>
+</div>
+
+<div class="row">
   <a href="manager/new" class="button">添加主管</a>
   <table width="100%">
     <thead>
