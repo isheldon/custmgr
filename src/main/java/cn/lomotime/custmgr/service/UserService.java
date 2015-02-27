@@ -75,7 +75,7 @@ public class UserService {
     User user = new User();
     user.setUserName(userName);
     user.setRealName(realName);
-    user.setPassword("123456");
+    user.setPassword("8c095b90f7045682a29500de145700a2");
     user.setRole(role);
     return user;
   }
