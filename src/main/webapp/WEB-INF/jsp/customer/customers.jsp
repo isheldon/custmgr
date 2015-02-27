@@ -1,10 +1,24 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <%@ page language="java" pageEncoding="utf-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%@include file="../pub/header.jsp" %>
 <%@include file="../pub/top-menu.jsp" %>
+
+<div class="row">
+  <div class="large-12 columns">
+    <c:if test="${formAction == 'customers'}">
+      <h3>客户管理</h3>
+    </c:if>
+    <c:if test="${formAction == 'selfcustomers'}">
+      <h3>自有客户管理</h3>
+    </c:if>
+    <c:if test="${formAction == 'subcustomers'}">
+      <h3>组员客户管理</h3>
+    </c:if>
+  </div>
+  <hr/>
+</div>
 
   <form:form id="customerForm" commandName="customer" action="${formAction}" method="POST">
     <div class="row">
@@ -35,11 +49,13 @@
       <div class="large-4 columns">
         <input type="submit" value="搜索" class="button"/>
         &nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="new" class="button">添加客户</a>
+        <c:if test="${formAction != 'subcustomers'}">
+          <a href="new" class="button">添加客户</a>
+        </c:if>
       </div>
+      <hr/>
     </div>
   </form:form>
-  <hr/>
 
   <div class="row">
     <table width="100%">
