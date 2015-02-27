@@ -6199,3 +6199,26 @@ th.hide-for-touch {
 
   th.show-for-print {
     display: table-cell !important; } }
+
+.top-bar {
+    background: #2ba6cb;
+}
+
+.top-bar-section li a:not(.button) {
+    background: #2ba6cb !important;   
+}
+
+.top-bar-section li a:not(.button):hover {
+    background: #2b76cb !important;   
+}
+
+.top-bar-section ul li.active > a {
+    background: #2ba6cb !important;   
+}
+
+.top-bar-section ul li.active > a:hover {
+    background: #2ba6cb !important;   
+}
+.contain-to-grid {
+  background: #2ba6cb;
+}
