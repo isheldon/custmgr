@@ -7,18 +7,21 @@ import cn.lomotime.custmgr.domain.Customer;
 
 public interface CustomerDao {
 
-  Customer getCustomersById(Integer id);
+  public Customer getCustomersById(Integer id);
 
-  List<Customer> getCustomersByExample(Customer example);
+  public void deleteCustomerById(Integer id);
 
-  List<Customer> getCustomersByExampleWithManager(Customer example);
+  public List<Customer> getCustomersByExample(Customer example);
+
+  public List<Customer> getCustomersByExampleWithManager(Customer example);
  
   public void insertCustomer(Customer customer);
 
   public void updateCustomer(Customer customer);
   
-  List<Customer> getCustomersWithUserId();
-  List<Customer> getCustomersWithoutUserId();
+  public List<Customer> getCustomersWithUserId();
+
+  public List<Customer> getCustomersWithoutUserId();
   
   public void updateCustomersSales(Map<String, Object> params);
   

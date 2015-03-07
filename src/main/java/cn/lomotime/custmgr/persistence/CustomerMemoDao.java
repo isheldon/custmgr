@@ -11,4 +11,6 @@ public interface CustomerMemoDao {
   public List<CustomerMemo> getMemos(Integer customerId);
   
   public void insertCustomerMemo(CustomerMemo memo);
+  
+  public void deleteMemosByCustomerId(Integer customerId);
 }

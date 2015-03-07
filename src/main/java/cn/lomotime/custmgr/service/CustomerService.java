@@ -27,6 +27,12 @@ public class CustomerService {
   public Customer getCustomersById(Integer id) {
     return customerDao.getCustomersById(id);
   }
+
+  @Transactional
+  public void deleteCustomersById(Integer id) {
+    customerDao.deleteCustomerById(id);
+    memoDao.deleteMemosByCustomerId(id);
+  }
   
   public List<Customer> getCustomersByExample(Customer example) {
     if (example == null) { example = new Customer(); }

@@ -24,4 +24,8 @@
   <insert id="insertCustomerMemo" parameterType="cn.lomotime.custmgr.domain.CustomerMemo" >
     insert into customer_memo (customer_id, memo) values (#{customerId}, #{memo})
   </insert>
+
+  <delete id="deleteMemosByCustomerId" parameterType="java.lang.Integer" >
+    delete from customer_memo where customer_id = #{customerId}
+  </delete>
 </mapper>

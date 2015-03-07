@@ -68,7 +68,8 @@ public class SecurityFilter implements Filter {
         !path.contains("/password") &&
         !path.contains("/chgpwd") &&
         !path.contains("/customer/edit") &&
-        !path.contains("/customer/update")
+        !path.contains("/customer/update") &&
+        !path.contains("/customer/delete")
         ) {
       throw new RuntimeException("NO_PERMISSION");
     }
@@ -80,7 +81,8 @@ public class SecurityFilter implements Filter {
         !path.contains("/password") &&
         !path.contains("/chgpwd") &&
         !path.contains("/customer/edit") &&
-        !path.contains("/customer/update")
+        !path.contains("/customer/update") &&
+        !path.contains("/customer/delete")
         ) {
       throw new RuntimeException("NO_PERMISSION");
     }

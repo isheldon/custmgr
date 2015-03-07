@@ -168,6 +168,15 @@ public class CustomerCtrl {
     return "redirect:/customer/selfcustomers";
   }
 
+  @RequestMapping("/delete/{id}")
+  public String deleteCustomer(HttpSession session, @PathVariable(value="id") Integer id) {
+    customerService.deleteCustomersById(id);
+    if ("ADMIN".equals(getCurrentUser(session).getRole())) {
+      return "redirect:/customer/customers";
+    }
+    return "redirect:/customer/selfcustomers";
+  }
+
   private User getCurrentUser(HttpSession session) {
     return (User) session.getAttribute("loginUser");
   }

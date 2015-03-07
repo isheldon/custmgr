@@ -25,7 +25,11 @@
   <select id="getCustomersById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select * from customer where id = #{id}
   </select>
-  
+
+  <delete id="deleteCustomerById" parameterType="java.lang.Integer" >
+    delete from customer where id = #{id}
+  </delete>
+
   <select id="getCustomersByExample" resultMap="BaseResultMap"
           parameterType="cn.lomotime.custmgr.domain.Customer" >
     <include refid="base_select" />
