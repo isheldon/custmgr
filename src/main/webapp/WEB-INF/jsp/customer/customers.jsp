@@ -86,6 +86,9 @@
           <td>${customer['lastMemo']}</td>
           <td>${customer['lastMemoTime']}</td>
           <td>
+            <c:if test="${formAction == 'selfcustomers' || formAction == 'customers'}">
+            <a href="edit/${customer['id']}">编辑</a>
+            </c:if>
             <c:if test="${formAction != 'selfcustomers'}">
             <a href="memohistory/${customer['id']}">历史备注</a>
             </c:if>

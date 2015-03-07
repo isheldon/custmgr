@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+
 //import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -115,6 +116,27 @@ public class CustomerCtrl {
   @RequestMapping("/createMemo")
   public String createMemo(Integer customerId, String memo, Integer contacted) {
     customerService.createCustomerMemo(customerId, memo, contacted);
+    return "redirect:/customer/selfcustomers";
+  }
+
+  @RequestMapping("/edit/{id}")
+  public String editCustomer(HttpSession session,
+      Model model, @PathVariable(value="id") Integer id) {
+    model.addAttribute("customer", customerService.getCustomersById(id));
+    if ("ADMIN".equals(getCurrentUser(session).getRole())) {
+      model.addAttribute("backPath", "../customers");
+    } else {
+      model.addAttribute("backPath", "../selfcustomers");
+    }
+    return "customer/customer-edit";
+  }
+  
+  @RequestMapping("/update")
+  public String updateCustomer(HttpSession session, @ModelAttribute("customer") Customer customer) {
+    customerService.updateCustomer(customer);
+    if ("ADMIN".equals(getCurrentUser(session).getRole())) {
+      return "redirect:/customer/customers";
+    }
     return "redirect:/customer/selfcustomers";
   }
 

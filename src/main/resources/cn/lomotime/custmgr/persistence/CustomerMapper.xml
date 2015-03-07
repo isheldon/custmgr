@@ -125,6 +125,31 @@
     )
   </insert>
   
+  <update id="updateCustomer" parameterType="cn.lomotime.custmgr.domain.Customer" >
+    update customer
+    <set >
+      <if test="orgName != null" >
+        org_name = #{orgName},
+      </if>
+      <if test="orgAddress != null" >
+        org_address = #{orgAddress},
+      </if>
+      <if test="contactName != null" >
+        contact_name = #{contactName},
+      </if>
+      <if test="contactPhone != null" >
+        contact_phone = #{contactPhone},
+      </if>
+      <if test="email != null" >
+        email = #{email},
+      </if>
+      <if test="qq != null" >
+        qq = #{qq},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  
   <update id="updateCustomersSales" parameterType="java.util.Map" >
     update customer set user_id = #{userId}
     where id in

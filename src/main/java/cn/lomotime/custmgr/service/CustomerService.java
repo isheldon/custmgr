@@ -72,6 +72,11 @@ public class CustomerService {
   }
 
   @Transactional
+  public void updateCustomer(Customer customer) {
+    customerDao.updateCustomer(customer);
+  }
+
+  @Transactional
   public void allocateCusomersSales(Integer userId, String[] customerIds) {
     Map<String, Object> params = new HashMap<String, Object>();
     params.put("userId", userId);

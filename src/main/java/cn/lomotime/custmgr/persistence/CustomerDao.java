@@ -14,6 +14,8 @@ public interface CustomerDao {
   List<Customer> getCustomersByExampleWithManager(Customer example);
  
   public void insertCustomer(Customer customer);
+
+  public void updateCustomer(Customer customer);
   
   List<Customer> getCustomersWithUserId();
   List<Customer> getCustomersWithoutUserId();
