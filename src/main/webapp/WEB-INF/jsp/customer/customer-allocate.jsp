@@ -5,11 +5,16 @@
 <script type="text/javascript">
 jQuery(function(){
   $("#allocatesales").click(function(){
-    if ($(":checkbox:checked").length == 0) {
+    if ($("[name='customerId']:checked").length == 0) {
       window.alert("请至少选择一个客户");
       return false;
     }
   });
+  
+  $("#chkAllCustomers").click(function(){
+    $("[name='customerId']").prop('checked', this.checked);  
+  }); 
+  
 });
 </script>
 
@@ -53,7 +58,9 @@ jQuery(function(){
       <table width="100%">
         <thead>
           <tr>
-            <td>全选</td>
+            <td>全选
+              <input type="checkbox" id="chkAllCustomers" name="chkAllCustomers"/>
+            </td>
             <td>单位名称</td>
             <td>联系人姓名</td>
             <td>联系电话</td>
