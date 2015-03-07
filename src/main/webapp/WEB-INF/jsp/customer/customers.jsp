@@ -5,6 +5,18 @@
 <%@include file="../pub/header.jsp" %>
 <%@include file="../pub/top-menu.jsp" %>
 
+<script type="text/javascript">
+jQuery(function(){
+  $("#uploadCust").click(function(){
+    if ($("#customerFile").val() == "") {
+      window.alert("请选择数据文件");
+      return false;
+    }
+  });
+  
+});
+</script>
+
 <div class="row">
   <div class="large-12 columns">
     <c:if test="${formAction == 'customers'}">
@@ -56,6 +68,20 @@
       <hr/>
     </div>
   </form:form>
+  
+  <c:if test="${formAction == 'customers'}">
+  <form action="importCustomers" method="POST" enctype="multipart/form-data">
+    <div class="row">
+      <div class="large-4 columns">
+        数据文件: <input type="file" name="customerFile" id="customerFile"/>
+      </div>
+      <div class="large-8 columns">
+        <input type="submit" id="uploadCust" value="上传客户数据" class="button"/>
+      </div>
+    </div>
+  </form>
+  <hr/>
+  </c:if>
 
   <div class="row">
     <table width="100%">

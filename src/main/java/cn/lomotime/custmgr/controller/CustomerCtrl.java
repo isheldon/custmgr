@@ -1,18 +1,21 @@
 package cn.lomotime.custmgr.controller;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-
-//import org.apache.log4j.Logger;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import cn.lomotime.custmgr.domain.Customer;
 import cn.lomotime.custmgr.domain.User;
@@ -22,7 +25,7 @@ import cn.lomotime.custmgr.service.UserService;
 @Controller
 @RequestMapping("/customer")
 public class CustomerCtrl {
-  //private static Logger logger = Logger.getLogger(CustomerCtrl.class);
+  private static Logger logger = Logger.getLogger(CustomerCtrl.class);
 
   @Resource
   private CustomerService customerService;
@@ -66,6 +69,31 @@ public class CustomerCtrl {
     }
     model.addAttribute("customer", customer);
     return "customer/customer-new";
+  }
+
+  @RequestMapping("/importCustomers")
+  public String importCustomers(MultipartFile customerFile) throws IOException {
+    //String realPath = req.getServletContext().getRealPath("/WEB-INF/upload");
+    BufferedReader br = new BufferedReader(
+        new InputStreamReader(customerFile.getInputStream(), "UTF-8"));
+    try {
+      String line = null;
+      while ((line = br.readLine())!= null) {
+        logger.debug("import line:\n" + line);
+        String[] props = line.split(",");
+        Customer customer = new Customer();
+        customer.setOrgName(props[0]);
+        customer.setOrgAddress(props[1]);
+        customer.setContactName(props[2]);
+        customer.setContactPhone(props[3]);
+        customer.setEmail(props[4]);
+        customer.setQq(props[5]);
+        customerService.createCustomer(customer);
+      }
+    } finally {
+      br.close();
+    }
+    return "redirect:/customer/customers";
   }
 
   @RequestMapping("/create")
