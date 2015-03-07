@@ -112,15 +112,15 @@ jQuery(function(){
           <td>${customer['lastMemo']}</td>
           <td>${customer['lastMemoTime']}</td>
           <td>
-            <c:if test="${formAction == 'selfcustomers' || formAction == 'customers'}">
-              <a href="edit/${customer['id']}">编辑</a>
-              <a href="delete/${customer['id']}">删除</a>
-            </c:if>
             <c:if test="${formAction != 'selfcustomers'}">
               <a href="memohistory/${customer['id']}">历史备注</a>
             </c:if>
             <c:if test="${formAction == 'selfcustomers'}">
               <a href="newMemo/${customer['id']}">添加备注</a>
+            </c:if>
+            <c:if test="${formAction == 'selfcustomers' || formAction == 'customers'}">
+              <a href="edit/${customer['id']}">编辑</a>
+              <a href="delete/${customer['id']}">删除</a>
             </c:if>
           </td>
         </tr>
