@@ -38,19 +38,23 @@ public class SecurityFilter implements Filter {
         path.contains(".gif") ||
         path.contains(".png")
         ) {
-      // do nothing
+      chain.doFilter(req, resp);
     } else {
-      HttpSession session = request.getSession(true);     
-      User user = (User) session.getAttribute("loginUser");
-      if (user == null) {
-        String ctx = request.getContextPath();
+      String ctx = request.getContextPath();
+      HttpSession session = request.getSession(false);     
+      if (session == null) {
         response.sendRedirect(ctx + "/login");
       } else {
-        checkRole(user.getRole(), path);
+        User user = (User) session.getAttribute("loginUser");
+        if (user == null) {
+          response.sendRedirect(ctx + "/login");
+        } else {
+          checkRole(user.getRole(), path);
+          chain.doFilter(req, resp);
+        }
       }
     }
 
-    chain.doFilter(req, resp);
   }
 
   @Override
